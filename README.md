@@ -301,3 +301,25 @@ git push
 
 Resumen de lo que tienes que recordar
 ejecutar la secuencia git init $\rightarrow$ git add $\rightarrow$ git commit $\rightarrow$ git remote add $\rightarrow$ git push, ya tienes el núcleo de la asignatura superado.
+
+
+
+Para recordarlo de memoria, el truco es seguir siempre esta misma secuencia:
+
+git init (Iniciar el repositorio en la carpeta).
+
+git branch -M main (Asegurarte de que la rama se llama main).
+
+git add . (Preparar todos los archivos nuevos o modificados).
+
+git commit -m "Mensaje descriptivo" (Guardar los cambios localmente con una nota).
+
+git remote add origin <URL> (Solo la primera vez que vinculas el repo con GitHub).
+
+git push -u origin main (Subirlo a la nube).
+
+haces un cambio a futuro:
+
+git add .
+git commit -m "Actualizando archivos"
+git push
