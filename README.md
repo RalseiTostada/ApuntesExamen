@@ -257,3 +257,47 @@ Presiona Enter.
 4. Crear un Tag anotado (Etiqueta)
 Las etiquetas sirven para "marcar" una versión o entrega exacta en la historia de commits:
 git tag -a entrega-tuNombre -m "Mensaje de la entrega"
+
+
+
+
+
+
+
+
+
+Comandos de Linux y Git para subir cualquier proyecto a GitHub
+1. Crear y prepararlo en la terminal de Linux:
+# 1. Crear la carpeta e ingresar en ella
+mkdir ~/apuntes-examen
+cd ~/apuntes-examen
+
+# 2. Inicializar el repositorio local de Git
+git init
+
+# 3. Cambiar el nombre de la rama principal a main (o master, según te pida)
+git branch -M main
+
+# 4. Crear el archivo de apuntes o de proyecto
+nano README.md
+# (Escribes el contenido, guardas con Ctrl+O, Enter y sales con Ctrl+X)
+
+# 5. Guardar los cambios localmente
+git add .
+git commit -m "Añadidos apuntes del examen"
+
+2. Conectar con GitHub y subir los archivos:
+# 6. Vincular tu carpeta local con el repositorio remoto de GitHub
+git remote add origin https://github.com/TU_USUARIO/NOMBRE_REPO.git
+
+# 7. Subir todo por primera vez
+git push -u origin main
+
+¿Cómo hacer cambios y volver a subir? (El ciclo continuo)
+Si más adelante modificas algún archivo o añades cosas nuevas, solo necesitas repetir estos 3 comandos:
+git add .
+git commit -m "Actualizados los apuntes"
+git push
+
+Resumen de lo que tienes que recordar
+ejecutar la secuencia git init $\rightarrow$ git add $\rightarrow$ git commit $\rightarrow$ git remote add $\rightarrow$ git push, ya tienes el núcleo de la asignatura superado.
