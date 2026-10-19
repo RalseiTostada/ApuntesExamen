@@ -30,7 +30,7 @@ git merge contacte
 # (Para salir de Vim en el merge: Esc -> :wq -> Enter)
 
 # Tag anotado y borrado de rama
-git tag -a entrega-Abel -m "Entrega"
+git tag -a entrega -m "Entrega"
 git branch -d contacte
 
 # Subir a GitHub
