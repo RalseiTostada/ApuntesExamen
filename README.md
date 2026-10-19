@@ -323,3 +323,405 @@ haces un cambio a futuro:
 git add .
 git commit -m "Actualizando archivos"
 git push
+
+
+
+
+
+
+
+
+
+
+
+      Ejercicio 1:
+
+Paso 1: Crear el repositorio local y mostrar su contenido
+Primero, creamos la carpeta del proyecto, accedemos a ella e inicializamos el repositorio de Git.
+
+# 1. Crear la carpeta del proyecto
+mkdir activitatsPrimeraClaseDAW
+
+# 2. Entrar en la carpeta
+cd activitatsPrimeraClaseDAW
+
+# 3. Inicializar el repositorio de Git local
+git init
+
+# 4. Mostrar todo el contenido (opción -a para ocultos, -l para detalle)
+ls -la
+
+Paso 2: Crear el archivo README.md y comprobar estados
+Crearemos el archivo README.md con el texto que has especificado.
+
+# 1. Crear el archivo README.md con el texto solicitado
+cat << 'EOF' > README.md
+Aquest repositori conté una recopilació d'activitats molt senzilles realitzades a la primera classe sobre Sistemes de control de versions.
+1. Configuració d'algunes preferències
+2. Instruccions per crear un primer repositori
+3. Afegiu un fitxer al repositori movent-lo del staged a la zona local comprovant l'estat.
+EOF
+
+luego comprobamos con:
+# 2. Comprovación:
+git status
+
+A continuación, lo movemos a la zona de preparación (Staging Area / Index):
+# 3. Añadir el archivo al staging area
+git add README.md
+
+# 4. Volver a comprobar el estado
+git status
+
+Paso 3: Realizar el commit
+Guardamos el estado actual del área de preparación en el historial de Git.
+git commit -m "Afegit fitxer Readme"
+
+Paso 4: Mostrar la traça de log en una sola línea personalizada
+Para mostrar el registro de commits (log) formateado en una sola línea con el hash, el autor, la data y la hora del cambio, utilizamos el parámetro --pretty=format:
+git log --pretty=format:"%h - %an, %ad : %s" --date=format:"%Y-%m-%d %H:%M:%S"
+
+Explicación de la sintaxis:
+
+%h: Hash corto del commit.
+
+%an: Nombre del autor (Author Name).
+
+%ad: Fecha de la aportación (Author Date).
+
+%s: Mensaje del commit (Subject).
+
+--date=format:"%Y-%m-%d %H:%M:%S": Define el formato específico de fecha y hora.
+
+Paso 5: Introducir un error y desfer el commit a l'stage (Mixed/Soft Reset)
+Introducimos un error en el archivo, creamos el commit y posteriormente lo deshacemos manteniendo los cambios en el Staging Area.
+
+# 1. Introducir un error en el archivo
+echo "Això és un error d'introducció" >> README.md
+
+# 2. Añadir al stage y realizar commit del error
+git add README.md
+git commit -m "Añadido error intencionado"
+
+# 3. Deshacer el último commit dejando los cambios en el Staging Area (Soft Reset)
+git reset --soft HEAD~1
+
+
+Paso 6: Introducir un nuevo error y desfer completamente el commit (Hard Reset)
+Para descartar un cambio por completo tanto del historial como del área de trabajo y el Staging Area, se utiliza un reseteo duro (hard reset).
+
+# 1. Volver a hacer commit del cambio erróneo
+git commit -m "Añadido segundo error"
+
+# 2. Deshacer el commit Y eliminar los cambios definitivamente
+git reset --hard HEAD~1
+
+Paso 7: Configurar nombre de usuario, correo y editor por defecto
+Para configurar la identidad global de Git y su editor de texto predeterminado, se utiliza el comando git config:
+
+# 1. Configurar el nombre de usuario
+git config --global user.name "Tu Nombre Y Apellidos"
+
+# 2. Configurar el correo electrónico
+git config --global user.email "tu_email@ejemplo.com"
+
+# 3. Configurar el editor por defecto (ejemplos comunes):
+# Para VS Code:
+git config --global core.editor "code --wait"
+
+# Para Nano (más común en terminales simples):
+# git config --global core.editor "nano"
+
+# Para Vim:
+# git config --global core.editor "vim"
+
+Para verificar que la configuración se ha guardado correctamente:
+git config --list
+
+
+
+
+        Ejercicio 2:
+
+0. Crear el repositorio e inicializarlo
+Creamos las carpetas correspondientes dentro del directorio personal (~), inicializamos el repositorio y añadimos el primer archivo.
+
+# 1. Crear el directorio ~/git/web y acceder a él
+mkdir -p ~/git/web
+cd ~/git/web
+
+# 2. Inicializar como repositorio Git
+git init
+
+# 3. Crear el archivo Readme.md y guardarle un contenido inicial
+echo "# Proyecto Web" > Readme.md
+
+# 4. Añadir al staging area y hacer el primer commit
+git add Readme.md
+git commit -m "Commit inicial: afegit Readme.md"
+
+1. Punto de partida
+Comprobamos el estado y creamos la nueva rama contacte.
+
+# 1. Comprobar en qué rama estamos y que el área de trabajo está limpia
+git status
+
+# 2. Crear la rama 'contacte' y cambiar a ella
+git checkout -b contacte
+
+2. Trabajar en la rama contacte
+Creamos el archivo index.html, agregamos la sección solicitada e iremos realizando cambios progresivos para tener dos commits distintos.
+
+Primer commit (Crear la estructura del HTML y la sección):
+# 1. Crear index.html con la estructura inicial
+cat << 'EOF' > index.html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacto</title>
+</head>
+<body>
+    <section>
+        <h2>Contacte</h2>
+    </section>
+</body>
+</html>
+EOF
+
+# 2. Añadir e iniciar el primer commit en la rama contacte
+git add index.html
+git commit -m "Afegida secció inicial de contacte en index.html"
+
+Segundo commit (Agregar el enlace/correo electrónico):
+# 3. Añadir el contenido del correo electrónico
+cat << 'EOF' > index.html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <title>Contacto</title>
+</head>
+<body>
+    <section>
+        <h2>Contacte</h2>
+        <p>Escriu-me a <a href="mailto:tu@exemple.com">tu@exemple.com</a></p>
+    </section>
+</body>
+</html>
+EOF
+
+# 4. Añadir e iniciar el segundo commit
+git add index.html
+git commit -m "Afegit correu de contacte a la secció"
+
+
+Ver el historial de commits hechos en esta rama:
+git log --oneline
+
+
+3. Avanzar master en paralelo
+Regresamos a la rama principal para hacer un cambio completamente independiente sin fusionar todavía contacte.
+
+# 1. Volver a la rama master (o main según tu configuración)
+git checkout master
+
+# 2. Crear un archivo independiente new.html
+echo "<h1>Pàgina Nova</h1>" > new.html
+
+# 3. Guardar el cambio en master
+git add new.html
+git commit -m "Afegit fitxer new.html a master"
+
+4. Fusionar la rama contacte dentro de master
+Estando posicionados en master, realizamos la fusión (merge) de la rama contacte.
+
+# Asegurándonos de estar en master, ejecutamos la fusión:
+git merge contacte -m "Fusionada branca contacte a master"
+
+5. Mostrar el contenido del repositorio para cada rama
+Comprobamos cómo varían los archivos según la rama en la que nos encontremos.
+
+# 1. Ver archivos en master (deben estar Readme.md, new.html e index.html)
+ls -la
+
+# 2. Cambiar temporalmente a contacte para comprobar
+git checkout contacte
+ls -la
+
+# 3. Volver a master
+git checkout master
+
+6. Marcar la entrega con un Tag anotado
+Creamos la etiqueta (tag) en la rama master con tu nombre.
+
+# 1. Crear el tag anotado (-a) con mensaje (-m)
+git tag -a entrega-tuNombre -m "Entrega de la pràctica de Git"
+Para verificar que el tag se ha creado correctamente:
+git tag -n
+
+7. Limpiar ramas secundarias
+Una vez integrados los cambios de contacte en master, procedemos a eliminar la rama local.
+git branch -d contacte
+
+8. Entrega final en GitHub
+Para subir el proyecto a un repositorio remoto en GitHub junto con la etiqueta (tag) generada:
+
+# 1. Vincular el repositorio local con el remoto de GitHub
+# (Sustituye la URL por la de tu repositorio creado en GitHub)
+git remote add origin https://github.com/tu-usuario/web.git
+
+# 2. Subir la rama principal al remoto
+git push -u origin master
+
+# 3. Subir explícitamente el tag creado
+git push origin entrega-tuNombre
+
+
+
+      Ejercicio 4:
+Paso 1: Crear la lista de URLs de prueba (Opcional pero recomendado)
+Para probar el ejecutable generado de forma automática, creamos un archivo llamado urls.txt en la raíz del repositorio con contenido de ejemplo:
+
+
+name: Compilar y Probar Ejecutables
+
+# Dispara el workflow con cada commit (push) al repositorio
+on:
+  push:
+    branches: [ "main", "master" ]
+  workflow_dispatch:
+
+jobs:
+  # -------------------------------------------------------------
+  # JOB 1: Compilar en Linux
+  # -------------------------------------------------------------
+  build-linux:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Descargar el código fuente
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar PyInstaller
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+
+      - name: Generar el ejecutable para Linux
+        run: pyinstaller --onefile comprova_desplegaments.py
+
+      - name: Subir el artefacto de Linux
+        uses: actions/upload-artifact@v4
+        with:
+          name: executable-linux
+          path: dist/comprova_desplegaments
+
+  # -------------------------------------------------------------
+  # JOB 2: Compilar en macOS
+  # -------------------------------------------------------------
+  build-macos:
+    runs-on: macos-latest
+
+    steps:
+      - name: Descargar el código fuente
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar PyInstaller
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+
+      - name: Generar el ejecutable para macOS
+        run: pyinstaller --onefile comprova_desplegaments.py
+
+      - name: Subir el artefacto de macOS
+        uses: actions/upload-artifact@v4
+        with:
+          name: executable-macos
+          path: dist/comprova_desplegaments
+
+  # -------------------------------------------------------------
+  # JOB 3: Compilar en Windows
+  # -------------------------------------------------------------
+  build-windows:
+    runs-on: windows-latest
+
+    steps:
+      - name: Descargar el código fuente
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.12
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Instalar PyInstaller
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller
+
+      - name: Generar el ejecutable para Windows
+        run: pyinstaller --onefile comprova_desplegaments.py
+
+      - name: Subir el artefacto de Windows
+        uses: actions/upload-artifact@v4
+        with:
+          name: executable-windows
+          path: dist/comprova_desplegaments.exe
+
+  # -------------------------------------------------------------
+  # JOB 4: Probar el ejecutable generado
+  # -------------------------------------------------------------
+  test-executable:
+    runs-on: ubuntu-latest
+    needs: build-linux  # Espera a que el job de compilar en Linux termine con éxito
+
+    steps:
+      - name: Descargar el código fuente (para obtener urls.txt si existe)
+        uses: actions/checkout@v4
+
+      - name: Descargar el artefacto de Linux
+        uses: actions/download-artifact@v4
+        with:
+          name: executable-linux
+          path: bin
+
+      - name: Conceder permisos de ejecución y probar el ejecutable
+        run: |
+          chmod +x bin/comprova_desplegaments
+          echo "=== Prueba 1: URL como argumento ==="
+          ./bin/comprova_desplegaments example.com httpbin.org/status/200
+          
+          echo -e "\n=== Prueba 2: Generación de informe CSV ==="
+          ./bin/comprova_desplegaments example.com --eixida informe_test.csv
+          
+          echo -e "\n=== Comprobación del contenido del CSV ==="
+          cat informe_test.csv
+
+
+
+Explicación detallada de la solución
+Compilación en diferentes S.O. (build-linux, build-macos, build-windows):
+Cada job utiliza el runner correspondiente (ubuntu-latest, macos-latest y windows-latest).Se utiliza actions/checkout@v4 para descargar el código y actions/setup-python@v5 configurado con la versión 3.12 de Python.
+Se instala pyinstaller vía pip install pyinstaller y se ejecuta el comando pyinstaller --onefile comprova_desplegaments.py.
+El resultado generado por PyInstaller se guarda en la carpeta dist/. Después utilizamos actions/upload-artifact@v4 para almacenar los ejecutables de cada sistema.
+Comprobación del ejecutable (test-executable):
+Se ejecuta tras finalizar el job de compilación de Linux (needs: build-linux).
+Descarga el artefacto executable-linux mediante actions/download-artifact@v4.
+Le concede permisos de ejecución (chmod +x) y ejecuta comprobaciones reales pasándole URLs y verificando la generación del archivo CSV, confirmando así que funciona correctamente sin necesidad de tener un entorno de Python configurado.
+
+
+
+
+
